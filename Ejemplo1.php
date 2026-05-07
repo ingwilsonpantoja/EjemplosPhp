@@ -18,7 +18,7 @@
                 <div class="card shadow-lg border-0 rounded-4">
                     
                     <div class="card-header bg-primary text-white text-center rounded-top-4">
-                        <h3>Formulario de Suma</h3>
+                        <h3>Formulario de Sumas</h3>
                     </div>
 
                     <div class="card-body p-4">
