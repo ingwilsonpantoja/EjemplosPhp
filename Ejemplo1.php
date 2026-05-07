@@ -26,12 +26,12 @@
                         <form id="formSuma">
 
                             <div class="mb-3">
-                                <label class="form-label">Número 1</label>
+                                <label class="form-label">Número uno</label>
                                 <input type="number" class="form-control" id="num1" placeholder="Ingrese el primer número" required>
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label">Número 2</label>
+                                <label class="form-label">Número dos</label>
                                 <input type="number" class="form-control" id="num2" placeholder="Ingrese el segundo número" required>
                             </div>
 
