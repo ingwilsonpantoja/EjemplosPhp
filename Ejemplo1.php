@@ -61,7 +61,7 @@
             let numero1 = parseFloat(document.getElementById("num1").value) || 0;
             let numero2 = parseFloat(document.getElementById("num2").value) || 0;
 
-            let suma = numero1 + numero2 - 1;
+            let suma = numero1 + numero2;
 
             document.getElementById("resultado").innerHTML = 
                 "Resultado: " + suma;
