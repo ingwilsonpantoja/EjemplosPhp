@@ -37,7 +37,7 @@
 
                             <div class="d-grid">
                                 <button type="button" class="btn btn-success" onclick="sumar()">
-                                    Calcular Suma
+                                    Calcular Suma de valores
                                 </button>
                             </div>
 
