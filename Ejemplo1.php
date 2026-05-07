@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario Suma</title>
+    <title>Formulario Sumas</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -18,7 +18,7 @@
                 <div class="card shadow-lg border-0 rounded-4">
                     
                     <div class="card-header bg-primary text-white text-center rounded-top-4">
-                        <h3>Formulario de Suma</h3>
+                        <h3>Formulario de Sumas</h3>
                     </div>
 
                     <div class="card-body p-4">
@@ -61,7 +61,7 @@
             let numero1 = parseFloat(document.getElementById("num1").value) || 0;
             let numero2 = parseFloat(document.getElementById("num2").value) || 0;
 
-            let suma = numero1 + numero2 + 1;
+            let suma = numero1 + numero2 - 1;
 
             document.getElementById("resultado").innerHTML = 
                 "Resultado: " + suma;
