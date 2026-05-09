@@ -75,7 +75,7 @@
                 total = n1 + n2;
                 simbolo = "+";
             } else if (operacion === 'resta') {
-                total = n1 + n2;
+                total = n1 - n2;
                 simbolo = "-";
             } else if (operacion === 'multi') {
                 total = n1 * n2;
