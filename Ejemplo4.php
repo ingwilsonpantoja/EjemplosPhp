@@ -3,79 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora Modern PHP</title>
+    <title>Calculadora Visual PHP</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 </head>
-<body class="bg-slate-900 flex items-center justify-center min-h-screen">
+<body class="bg-slate-50 flex items-center justify-center min-h-screen p-4">
 
 <?php
-$resultado = "";
-if (isset($_POST['calcular'])) {
-    $n1 = $_POST['n1'];
-    $n2 = $_POST['n2'];
-    $op = $_POST['operacion'];
+$resultado = "0";
+$operacion_realizada = "";
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $n1 = $_POST['n1'] ?? 0;
+    $n2 = $_POST['n2'] ?? 0;
+    $op = $_POST['operacion'] ?? '';
 
     if (is_numeric($n1) && is_numeric($n2)) {
         switch ($op) {
-            case '+': $resultado = $n1 + $n2; break;
-            case '-': $resultado = $n1 - $n2; break;
-            case '*': $resultado = $n1 * $n2; break;
+            case '+': $resultado = $n1 + $n2; $simbolo = "+"; break;
+            case '-': $resultado = $n1 - $n2; $simbolo = "-"; break;
+            case '*': $resultado = $n1 * $n2; $simbolo = "×"; break;
             case '/': 
-                $resultado = ($n2 != 0) ? $n1 / $n2 : "Error: Div 0";
+                if ($n2 != 0) {
+                    $resultado = $n1 / $n2;
+                    $simbolo = "÷";
+                } else {
+                    $resultado = "Error";
+                    $simbolo = "÷";
+                }
                 break;
         }
-    } else {
-        $resultado = "Ingresa números";
+        $operacion_realizada = "$n1 $simbolo $n2 =";
     }
 }
 ?>
 
-<div class="bg-white p-8 rounded-3xl shadow-2xl w-full max-w-md">
-    <h2 class="text-2xl font-bold text-slate-800 mb-6 text-center">Calculadora Pro</h2>
-    
-    <form method="post" class="space-y-4">
-        <div>
-            <label class="block text-sm font-medium text-slate-600 mb-1">Primer Número</label>
-            <input type="number" step="any" name="n1" required
-                class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all"
-                placeholder="0.00">
+<div class="bg-white p-6 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] w-full max-w-sm border border-slate-100">
+    <!-- Pantalla de Resultado -->
+    <div class="bg-slate-900 rounded-2xl p-6 mb-6 text-right overflow-hidden border-b-4 border-indigo-500">
+        <p class="text-slate-400 text-xs font-semibold uppercase tracking-widest mb-1 h-4">
+            <?php echo $operacion_realizada; ?>
+        </p>
+        <h1 class="text-white text-4xl font-bold truncate">
+            <?php echo $resultado; ?>
+        </h1>
+    </div>
+
+    <form method="post" class="space-y-5">
+        <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-1">
+                <label class="text-[10px] font-bold text-slate-400 uppercase ml-2">Valor A</label>
+                <input type="number" step="any" name="n1" value="<?php echo $_POST['n1'] ?? ''; ?>" required
+                    class="w-full bg-slate-100 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 outline-none transition-all font-semibold" placeholder="0">
+            </div>
+            <div class="space-y-1">
+                <label class="text-[10px] font-bold text-slate-400 uppercase ml-2">Valor B</label>
+                <input type="number" step="any" name="n2" value="<?php echo $_POST['n2'] ?? ''; ?>" required
+                    class="w-full bg-slate-100 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 outline-none transition-all font-semibold" placeholder="0">
+            </div>
         </div>
 
-        <div>
-            <label class="block text-sm font-medium text-slate-600 mb-1">Operación</label>
-            <select name="operacion" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none appearance-none bg-white">
-                <option value="+">Suma (+)</option>
-                <option value="-">Resta (-)</option>
-                <option value="*">Multiplicación (×)</option>
-                <option value="/">División (÷)</option>
-            </select>
+        <!-- Botonera de Operaciones -->
+        <div class="grid grid-cols-4 gap-3">
+            <button type="submit" name="operacion" value="+" 
+                class="h-14 bg-indigo-50 text-indigo-600 rounded-2xl font-bold text-xl hover:bg-indigo-600 hover:text-white transition-all active:scale-90 shadow-sm">
+                +
+            </button>
+            <button type="submit" name="operacion" value="-" 
+                class="h-14 bg-indigo-50 text-indigo-600 rounded-2xl font-bold text-xl hover:bg-indigo-600 hover:text-white transition-all active:scale-90 shadow-sm">
+                -
+            </button>
+            <button type="submit" name="operacion" value="*" 
+                class="h-14 bg-indigo-50 text-indigo-600 rounded-2xl font-bold text-xl hover:bg-indigo-600 hover:text-white transition-all active:scale-90 shadow-sm">
+                ×
+            </button>
+            <button type="submit" name="operacion" value="/" 
+                class="h-14 bg-indigo-50 text-indigo-600 rounded-2xl font-bold text-xl hover:bg-indigo-600 hover:text-white transition-all active:scale-90 shadow-sm">
+                ÷
+            </button>
         </div>
 
-        <div>
-            <label class="block text-sm font-medium text-slate-600 mb-1">Segundo Número</label>
-            <input type="number" step="any" name="n2" required
-                class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all"
-                placeholder="0.00">
-        </div>
-
-        <button type="submit" name="calcular"
-            class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-xl shadow-lg shadow-indigo-200 transition-all transform active:scale-95">
-            Calcular Resultado
+        <button type="button" onclick="window.location.href=window.location.href" 
+            class="w-full py-3 text-slate-400 text-sm font-medium hover:text-rose-500 transition-colors">
+            Limpiar pantalla
         </button>
     </form>
-
-    <?php if ($resultado !== ""): ?>
-    <div class="mt-8 p-4 bg-indigo-50 rounded-2xl border border-indigo-100 text-center">
-        <span class="block text-sm text-indigo-400 font-semibold uppercase tracking-wider">Resultado</span>
-        <span class="text-3xl font-bold text-indigo-900 leading-tight">
-            <?php echo $resultado; ?>
-        </span>
-    </div>
-    <?php endif; ?>
 </div>
 
 </body>
